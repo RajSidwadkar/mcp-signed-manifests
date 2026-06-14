@@ -1,0 +1,22 @@
+{
+  "name": "mcp-signed-manifests",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Reference implementation of signed tool manifests for MCP — a defense against tool-poisoning / rug-pull attacks.",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "demo": "ts-node example/demo.ts",
+    "test": "ts-node example/demo.ts"
+  },
+  "dependencies": {
+    "@noble/curves": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.4.0"
+  }
+}
