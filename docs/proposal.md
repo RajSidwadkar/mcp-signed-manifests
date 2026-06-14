@@ -171,4 +171,4 @@ clients, and interceptors that do not implement
 
 A reference implementation (Ed25519 signer/verifier + a runnable demo showing
 tamper detection) is available at:
-`<your GitHub repo URL — fill in once pushed>`
+https://github.com/RajSidwadkar/mcp-signed-manifests
