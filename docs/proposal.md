@@ -4,10 +4,7 @@
 - **Proposed track:** Extensions Track (per SEP-1724)
 - **Created:** 2026-06-14
 - **Author:** RajSidwadkar
-- **Related work:** SEP-1763 ("Interceptors for Model Context Protocol") — this
-  proposal defines a manifest-integrity mechanism that interceptors described
-  in SEP-1763 could implement (signing on behalf of unmodified servers,
-  verifying on behalf of unmodified clients).
+
 
 ## Abstract
 
