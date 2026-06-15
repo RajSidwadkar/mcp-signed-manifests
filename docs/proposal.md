@@ -156,6 +156,19 @@ This proposal does not define those consuming extensions. It defines the
 canonical form and fingerprint so that any extension wishing to reference a
 signed manifest snapshot has a single, unambiguous way to do so.
 
+### 7. Known Consumers (Informative)
+
+The following independent projects consume `manifestHash` as a reference
+anchor:
+
+- **capgate** (Apache-2.0) — compiles sandbox policy (mount/network rules)
+  from the canonical manifest bytes identified by `manifestHash`, ensuring
+  enforcement is derived from the same artifact that was signed and
+  referenced in attestation records.
+
+This section is informative only and does not constrain the specification.
+Projects MAY be added or removed without affecting the normative sections
+above.
 
 ## Rationale and alternatives considered
 
