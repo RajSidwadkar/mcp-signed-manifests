@@ -133,6 +133,30 @@ This means the extension can be adopted incrementally via gateway/sidecar
 deployments before any first-party server or client SDK changes, which
 matches MCP's existing pattern of optional, composable extensions.
 
+### 6. Manifest Fingerprint (Reference Anchor)
+
+In addition to the Ed25519 signature, implementers MAY compute a
+**manifest fingerprint**:
+
+```
+manifestHash = "sha256:" + hex(SHA-256(canonical_bytes(manifest)))
+```
+
+where `canonical_bytes(manifest)` is the same canonical JSON serialization
+defined in Section 2 (sorted keys, no whitespace), applied to the `manifest`
+object only (not the envelope's `signature` field).
+
+The fingerprint is a short, lookup-friendly identifier for a specific signed
+manifest snapshot. Other extensions — e.g., per-call attestation records or
+runtime-enforcement policy compilers — MAY reference `manifestHash` to bind
+their own records to the exact manifest version that was active at the time,
+without needing to embed or re-transmit the full manifest.
+
+This proposal does not define those consuming extensions. It defines the
+canonical form and fingerprint so that any extension wishing to reference a
+signed manifest snapshot has a single, unambiguous way to do so.
+
+
 ## Rationale and alternatives considered
 
 - **Per-call signing of tool invocations** was considered and rejected for v1
