@@ -156,19 +156,39 @@ This proposal does not define those consuming extensions. It defines the
 canonical form and fingerprint so that any extension wishing to reference a
 signed manifest snapshot has a single, unambiguous way to do so.
 
-### 7. Known Consumers (Informative)
+### 7. Known Consumers and Adjacent Layers (Informative)
 
-The following independent projects consume `manifestHash` as a reference
-anchor:
+- **capgate** (Apache-2.0) compiles sandbox policy (mount and network rules)
+  from a capability manifest projection, using an RFC 8785 (JCS) canonical
+  form. As of v0.0.4, each compiled artifact carries a provenance block
+  (`manifestHash`, `grammarVersion`, `canonicalization: "RFC8785"`) computed
+  over capgate's own capability manifest. This is a sibling canonicalization
+  to the one defined in Section 2, not the same artifact. Direct consumption
+  of this proposal's `manifestHash` would require capgate to ingest the tool
+  manifest format itself; that integration has not been built.
 
-- **capgate** (Apache-2.0) — compiles sandbox policy (mount/network rules)
-  from the canonical manifest bytes identified by `manifestHash`, ensuring
-  enforcement is derived from the same artifact that was signed and
-  referenced in attestation records.
+- **SEP-2828 / vaara** (AGPL) is an independent, shipped runtime layer: a
+  hash-chained record of each tool call bound to the authorizing decision, an
+  enforcement gate (`vaara proxy --enforce`) that can allow, deny, or
+  escalate a call before it runs, and a keyless zero-knowledge proof of the
+  recorded verdict. It is explicitly orthogonal to this proposal and does not
+  currently consume `manifestHash`. The two remain composable at the boundary
+  discussed in Section 4 (a call record MAY reference a `manifest_hash` field
+  using the canonical form defined in Section 2), but that binding is not yet
+  implemented on either side.
+
+- A separate, out-of-scope concern raised in review: a tool call can match
+  its signed manifest exactly and be fully authorized and receipted at the
+  call layer, and still return results (a mail body, a command output) that
+  carry instructions written by a third party. This is a content-trust
+  problem at the result boundary, not a descriptor or authorization problem,
+  and this proposal does not address it. One production implementation
+  (session-level tainting of tools that return other-authored content) is
+  documented in `#3093` for reference; this proposal does not adopt its
+  terminology or mechanism.
 
 This section is informative only and does not constrain the specification.
-Projects MAY be added or removed without affecting the normative sections
-above.
+Entries MAY be added, removed, or corrected as implementations change.
 
 ## Rationale and alternatives considered
 
